@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import com.tergeo.exweather.R
+import kotlinx.android.synthetic.main.weather_fragment.loading
 import kotlinx.android.synthetic.main.weather_fragment.weatherText
 
 class WeatherFragment : Fragment() {
@@ -30,9 +32,25 @@ class WeatherFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(WeatherViewModel::class.java)
 
         viewModel.weatherLiveData.observe(viewLifecycleOwner, {
-            weatherText.text = it.toString()
+            render(it)
         })
 
         viewModel.getWeather()
+    }
+
+    private fun render(state: WeatherScreenState){
+        if (state.loading){
+            loading.visibility = View.VISIBLE
+        } else {
+            loading.visibility = View.GONE
+        }
+
+        if (state.error != null) {
+            weatherText.text = state.error.message
+        }
+
+        if (state.success != null){
+            weatherText.text = state.success.toString()
+        }
     }
 }

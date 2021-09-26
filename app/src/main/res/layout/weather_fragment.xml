@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".presentation.weather.WeatherFragment">
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"/>
+
     <TextView
         android:id="@+id/weatherText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
